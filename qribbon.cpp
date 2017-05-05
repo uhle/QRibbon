@@ -45,10 +45,9 @@
 #include "qribbonsection.h"
 
 #include <QWidget>
-#include <QPushButton>
 #include <QHBoxLayout>
 #include <QTabBar>
-#include <QStyle>
+#include <QToolButton>
 #include <QStyleOptionToolButton>
 #include <QApplication>
 #include <QMessageBox>
@@ -105,7 +104,7 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
     tab->setLayout(layout);
 
     // It will contain a hide button
-    QPushButton *hide = new QRibbonButton(*up, "", widget);
+    QToolButton *hide = new QRibbonButton(*up, "", tab);
     hide->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     QFont f;
     QFontMetrics metrics(f);
@@ -113,7 +112,6 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
     hide->setIconSize(is);
     is = QSize(is.width()*2, is.height());
     hide->setMaximumSize(is);
-    //hide->setFlat(true);
 
     layout->addWidget(widget, 0, Qt::AlignLeft);
     layout->addWidget(hide, 0, Qt::AlignRight | Qt::AlignBottom);
@@ -223,6 +221,24 @@ QSize QRibbon::minimumSizeHint() const
 QSize QRibbon::sizeHint() const
 {
     return (hidden) ? currentSize : super::sizeHint();
+}
+
+void QRibbon::showEvent(QShowEvent *event)
+{
+    int i;
+    for(i = 0; i < widgets.size(); i++) {
+        QWidget *w = widgets[i];
+        QList<QRibbonButton *> list = w->findChildren<QRibbonButton *>();
+        int j;
+        for(j = 0; j < list.size(); j++) {
+            QAction *a = list[j]->defaultAction();
+            if (a && a->shortcuts().size() > 0) {
+                this->addAction(a);
+            }
+        }
+    }
+
+    super::showEvent(event);
 }
 
 void QRibbon::hideShow()

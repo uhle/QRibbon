@@ -3,68 +3,47 @@
 #include <QAction>
 #include <QEvent>
 
-QRibbonButton::QRibbonButton(QWidget *parent) : QPushButton(parent)
+QRibbonButton::QRibbonButton(QWidget *parent) : QToolButton(parent)
 {
     init(Q_NULLPTR);
 }
 
-QRibbonButton::QRibbonButton(const QString &text, QWidget *parent) : QPushButton(text, parent)
+QRibbonButton::QRibbonButton(const QString &text, QWidget *parent) : QToolButton(parent)
 {
     init(Q_NULLPTR);
+    setText(text);
 }
 
 QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, QWidget *parent)
-    : QPushButton(icon, text, parent)
+    : QToolButton(parent)
 {
     init(Q_NULLPTR);
+    setIcon(icon);
+    setText(text);
 }
 
 QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, const QString &name, QWidget *parent)
-    : QPushButton(icon, text, parent)
+    : QToolButton(parent)
 {
     init(&name);
+    setIcon(icon);
+    setText(text);
 }
-
-
-
-static int button_number = 0;
 
 void QRibbonButton::init(const QString *_name)
 {
-    setFlat(true);
-    _action = Q_NULLPTR;
+    setAutoRaise(true);
 
+    static int button_number = 0;
     button_number += 1;
+
     QString name;
-    if (_name == Q_NULLPTR) { // small error here
+    if (_name == Q_NULLPTR || _name->size() == 0) {
         name = name.sprintf("%s_%04d", "qribbonbut", button_number);
-        this->setObjectName(name);
     } else {
         name = *_name;
     }
+    this->setObjectName(name);
     this->setStyleSheet("#" + name + ":hover { background: #d5e1f2;border: none; }");
-}
-
-void QRibbonButton::setAction(QAction *a)
-{
-    _action = a;
-}
-
-QAction *QRibbonButton::getAction()
-{
-    return _action;
-}
-
-bool QRibbonButton::event(QEvent *e)
-{
-    /*if(e->type() == QEvent::HoverEnter) {
-       // setFlat(false);
-    }
-
-    if(e->type() == QEvent::HoverLeave) {
-       // setFlat(true);
-    }*/
-
-    return QPushButton::event(e);
 }
 

@@ -3,10 +3,10 @@
 
 #include "qribbon_global.h"
 
-#include <QPushButton>
+#include <QToolButton>
 
 
-class QRIBBON_EXPORT QRibbonButton : public QPushButton
+class QRIBBON_EXPORT QRibbonButton : public QToolButton
 {
     Q_OBJECT
 
@@ -19,15 +19,6 @@ public:
     QRibbonButton(const QIcon &icon, const QString &text, QWidget *parent = Q_NULLPTR);
     QRibbonButton(const QIcon &icon, const QString &text, const QString &name, QWidget *parent = Q_NULLPTR);
 
-public:
-    void setAction(QAction *a);
-    QAction *getAction();
-
-protected:
-    bool event(QEvent *e);
-
-private:
-    QAction *_action;
 };
 
 #endif // QRIBBONBUTTON_H

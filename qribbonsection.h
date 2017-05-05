@@ -5,7 +5,8 @@
 
 #include <QAction>
 #include <QLabel>
-#include <QPushButton>
+#include <QToolButton>
+#include <QVector>
 #include <QWidget>
 
 class QRIBBON_EXPORT  QRibbonSection : public QWidget
@@ -19,7 +20,7 @@ public:
 private:
     QWidget *buttons;
     QLabel  *title;
-    QPushButton *details;
+    QToolButton *details;
     QAction *action;
 
     int row;
@@ -34,7 +35,6 @@ public:
 
 public slots:
     void activateDetails();
-    void activateAction();
 
 public:
     void addAction(QAction *btn, const QString &name = Q_NULLPTR);

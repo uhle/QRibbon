@@ -44,7 +44,7 @@
 #include "qribbon_global.h"
 #include <QWidget>
 #include <QTabWidget>
-#include <QPushButton>
+#include <QToolButton>
 
 class QRibbonSection;
 
@@ -56,7 +56,7 @@ private:
     bool                     hidden, popup;
     QSize                    prevSize, currentSize;
     QIcon                   *up, *point;
-    QVector<QPushButton *>   pins;
+    QVector<QToolButton *>   pins;
     QVector<QWidget *>       widgets;
 
 private:
@@ -66,6 +66,7 @@ protected:
     typedef QTabWidget super;
     virtual QSize minimumSizeHint() const;
     virtual QSize sizeHint() const;
+    virtual void showEvent(QShowEvent *event);
 
 public:
     QRibbon(QWidget *parent = Q_NULLPTR);

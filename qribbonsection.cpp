@@ -93,18 +93,6 @@ void QRibbonSection::activateDetails()
     }
 }
 
-void QRibbonSection::activateAction()
-{
-    QAction *a;
-    QRibbonButton *b = (QRibbonButton *) sender();
-    if (b) {
-        a = b->getAction();
-        if (a) {
-            a->trigger();
-        }
-    }
-}
-
 QWidget *QRibbonSection::widget(int index)
 {
     return _widgets.value(index, Q_NULLPTR);
@@ -131,9 +119,11 @@ void QRibbonSection::addAction(QAction *a, const QString &name)
 {
     QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     QRibbonButton *btn = new QRibbonButton(a->icon(), a->text(), name, buttons);
-    btn->setAction(a);
-    connect(btn, SIGNAL(clicked()), this, SLOT(activateAction()));
-    if (&name != 0) { btn->setObjectName(name); } else { btn->setObjectName(a->objectName()); }
+    btn->setDefaultAction(a);
+    if (a->text().size() > 0) {
+        btn->setText(a->text());
+        btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    }
     l->addWidget(btn, row, col, 1, 1);
     col += 1;
     _widgets.append(btn);
@@ -143,12 +133,14 @@ void QRibbonSection::addLargeAction(QAction *a, const QString &name)
 {
     QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     QRibbonButton *btn = new QRibbonButton(a->icon(), a->text(), name, buttons);
-    btn->setAction(a);
-    connect(btn, SIGNAL(clicked()), this, SLOT(activateAction()));
-    if (&name != 0) { btn->setObjectName(name); } else { btn->setObjectName(a->objectName()); }
+    btn->setDefaultAction(a);
     nextColumn();
     btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     btn->setIconSize(QSize(btn->iconSize().width() * 2, btn->iconSize().height() * 2));
+    if (a->text().size() > 0) {
+        btn->setText(a->text());
+        btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    }
     l->addWidget(btn, row, col, 2, 2);
     col += 2;
     _widgets.append(btn);

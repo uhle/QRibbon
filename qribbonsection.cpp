@@ -25,7 +25,7 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
     QFrame *line = new QFrame(this);
     line->setFrameStyle(QFrame::VLine | QFrame::Plain);
     line->setFixedWidth(3);
-    line->setContentsMargins(0,3,0,5);
+    line->setContentsMargins(0,5,0,3);
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QString sheet = line->styleSheet();
     sheet.append("QFrame { color: #c0c0c0; }");
@@ -37,12 +37,13 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
 
     buttons = new QWidget(this);
     QGridLayout *blayout = new QGridLayout();
-    blayout->setContentsMargins(0,2,0,2);
+    blayout->setContentsMargins(0,2,2,2);
     blayout->setSpacing(2);
     buttons->setLayout(blayout);
 
     QHBoxLayout *lfooter = new QHBoxLayout();
     lfooter->setContentsMargins(0,0,0,0);
+    lfooter->setAlignment(Qt::AlignBottom);
 
     if (&title == Q_NULLPTR) {
         title = new QLabel("", this);
@@ -58,9 +59,11 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
     details->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     QFont f;
     QFontMetrics metrics(f);
-    QSize is = QSize(metrics.boundingRect("^").width(), metrics.boundingRect("X").height());
-    is = QSize(is.width()*2, is.height());
+    int h = metrics.boundingRect("X").height();
+    QSize is = QSize(h, h);
     details->setIconSize(is);
+    details->setMinimumSize(is);
+    is = QSize(h*1.2, h);
     details->setMaximumSize(is);
     details->setVisible(false);
     QObject::connect(details, SIGNAL(clicked()), this, SLOT(activateDetails()));
@@ -175,7 +178,7 @@ void QRibbonSection::addSeparator()
     QFrame *line = new QFrame(this);
     line->setFrameStyle(QFrame::VLine | QFrame::Plain);
     line->setFixedWidth(3);
-    line->setContentsMargins(0,3,0,5);
+    line->setContentsMargins(0,5,0,3);
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QString sheet = line->styleSheet();
     sheet.append("QFrame { color: #c0c0c0; }");

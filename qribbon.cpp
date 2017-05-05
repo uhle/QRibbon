@@ -108,9 +108,9 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
     hide->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     QFont f;
     QFontMetrics metrics(f);
-    QSize is = QSize(metrics.boundingRect("^").width()*2, metrics.boundingRect("^").height()*2);
+    QSize is = QSize(metrics.boundingRect("^").width()*2, metrics.boundingRect("^").height());
     hide->setIconSize(is);
-    is = QSize(is.width()*2, is.height());
+    is = QSize(is.width()*1.6, is.height());
     hide->setMaximumSize(is);
 
     layout->addWidget(widget, 0, Qt::AlignLeft);

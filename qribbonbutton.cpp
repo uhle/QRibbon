@@ -44,6 +44,6 @@ void QRibbonButton::init(const QString *_name)
         name = *_name;
     }
     this->setObjectName(name);
-    this->setStyleSheet("#" + name + ":hover { background: #d5e1f2;border: none; }");
+    this->setStyleSheet("#" + name + ":hover { background: #d5e1f2; border: none; border-radius: 3px; }");
 }
 

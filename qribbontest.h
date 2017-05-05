@@ -14,6 +14,12 @@ public slots:
 public:
     QRibbonTest();
     ~QRibbonTest();
+
+    virtual QSize minimumSizeHint() const;
+    virtual QSize sizeHint() const;
+    virtual void setVisible(bool visible);
+
+    QWidget *boundingWindow;
 };
 
 #endif // QRIBBONTEST_H

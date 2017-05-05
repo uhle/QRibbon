@@ -1,24 +1,25 @@
 #include "qribbonsection.h"
 #include "qribbontest.h"
+#include "qribbon.h"
 
 #include <QComboBox>
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QApplication>
-#include "qribbon.h"
-#include <stdio.h>
+#include <cstdio>
 
 QRibbonTest::QRibbonTest()
 {
     QPlainTextEdit *textEdit = new QPlainTextEdit;
     textEdit->insertPlainText("Hallo allemaal!\n\nDit is een tekst!");
     textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    QWidget *widget = new QWidget(this);
+    boundingWindow = new QWidget();
     QVBoxLayout *layout = new QVBoxLayout();
-    widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    boundingWindow->setLayout(layout);
     layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(0);
+    layout->addWidget(this);
 
     QPushButton *b1 = new QPushButton("Hi!", this);
     b1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -79,18 +80,38 @@ QRibbonTest::QRibbonTest()
     connect(ribbon,SIGNAL(currentIndexChanged(int)),this,SLOT(indexChanged(int)));
 
 
-    layout->addWidget(ribbon);
+    setMenuWidget(ribbon);
 
-    layout->addWidget(textEdit);
-    widget->setLayout(layout);
-    setCentralWidget(widget);
+    setCentralWidget(textEdit);
 
-    //this->setWindowFlags(Qt::FramelessWindowHint);
+    //boudingWindow->setWindowFlags(Qt::FramelessWindowHint);
 }
 
 QRibbonTest::~QRibbonTest()
 {
 
+}
+
+QSize QRibbonTest::minimumSizeHint() const
+{
+    QSize s = QMainWindow::minimumSizeHint();
+    QSize ms = menuWidget()->minimumSizeHint();
+    s.setWidth(qMax(s.width(), ms.width()));
+    return s;
+}
+
+QSize QRibbonTest::sizeHint() const
+{
+    QSize s = QMainWindow::sizeHint();
+    QSize ms = menuWidget()->minimumSizeHint();
+    s.setWidth(qMax(s.width(), ms.width()));
+    return s;
+}
+
+void QRibbonTest::setVisible(bool visible)
+{
+    QMainWindow::setVisible(visible);
+    boundingWindow->setVisible(visible);
 }
 
 void QRibbonTest::indexChanged(int tab) {
@@ -103,7 +124,7 @@ void QRibbonTest::action() {
     printf("action = %p\n",a);
     if (a->objectName() == "bb") {
         printf("JE!\n");
-        QApplication::quit();
+        QApplication::closeAllWindows();
     }
     fflush(stdout);
 }

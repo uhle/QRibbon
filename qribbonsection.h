@@ -43,6 +43,8 @@ public:
     void addLargeWidget(QWidget *w, const QString &name);
     void addWidget(QWidget *w, const QString &name = Q_NULLPTR, int colspan = 1);
 
+    void addSeparator();
+
     void nextRow();
     void nextColumn();
 

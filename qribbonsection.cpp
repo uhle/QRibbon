@@ -31,38 +31,30 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
     sheet.append("QFrame { color: #c0c0c0; }");
     line->setStyleSheet(sheet);
 
-    QWidget *wvbox = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(0);
-    wvbox->setLayout(layout);
 
-    buttons = new QWidget(wvbox);
+    buttons = new QWidget(this);
     QGridLayout *blayout = new QGridLayout();
-    blayout->setContentsMargins(0,0,0,0);
+    blayout->setContentsMargins(0,2,0,2);
     blayout->setSpacing(2);
     buttons->setLayout(blayout);
 
     QHBoxLayout *lfooter = new QHBoxLayout();
     lfooter->setContentsMargins(0,0,0,0);
-    QWidget *footer = new QWidget(wvbox);
-    footer->setLayout(lfooter);
 
     if (&title == Q_NULLPTR) {
-        title = new QLabel("", footer);
+        title = new QLabel("", this);
     } else {
-        title = new QLabel(_title, footer);
+        title = new QLabel(_title, this);
     }
     title->setAlignment(Qt::AlignCenter);
     QFont titleFont = title->font();
     titleFont.setPointSize(titleFont.pointSize()*0.98f);
     title->setFont(titleFont);
 
-    {
-        QIcon *dtl = new QIcon(":/icons/QRibbonDetails.svg");
-        details = new QRibbonButton(*dtl, "", footer);
-        delete dtl;
-    }
+    details = new QRibbonButton(QIcon(":/icons/QRibbonDetails.svg"), "", this);
     details->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     QFont f;
     QFontMetrics metrics(f);
@@ -78,9 +70,9 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
     lfooter->addWidget(details);
 
     layout->addWidget(buttons, 1);
-    layout->addWidget(footer);
+    layout->addLayout(lfooter);
 
-    slayout->addWidget(wvbox, 1);
+    slayout->addLayout(layout, 1);
     slayout->addWidget(line, 1);
 }
 
@@ -115,7 +107,7 @@ void QRibbonSection::activateAction()
 
 QWidget *QRibbonSection::widget(int index)
 {
-    return _widgets[index];
+    return _widgets.value(index, Q_NULLPTR);
 }
 
 int QRibbonSection::count()
@@ -130,7 +122,9 @@ int QRibbonSection::currentIndex()
 
 void QRibbonSection::setCurrentIndex(int i)
 {
-    _index = i;
+    if (i >= 0 && i < _widgets.size()) {
+        _index = i;
+    }
 }
 
 void QRibbonSection::addAction(QAction *a, const QString &name)
@@ -181,6 +175,21 @@ void QRibbonSection::addLargeWidget(QWidget *w, const QString &name)
     l->addWidget(w, row, col, 2, 2);
     col += 2;
     _widgets.append(w);
+}
+
+void QRibbonSection::addSeparator()
+{
+    QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
+    QFrame *line = new QFrame(this);
+    line->setFrameStyle(QFrame::VLine | QFrame::Plain);
+    line->setFixedWidth(3);
+    line->setContentsMargins(0,3,0,5);
+    line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QString sheet = line->styleSheet();
+    sheet.append("QFrame { color: #c0c0c0; }");
+    line->setStyleSheet(sheet);
+    l->addWidget(line, 0, l->columnCount(), l->rowCount(), 1);
+    nextColumn();
 }
 
 void QRibbonSection::nextColumn()

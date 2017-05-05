@@ -46,7 +46,6 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QGridLayout>
 #include <QHBoxLayout>
 #include <QTabBar>
 #include <QStyle>
@@ -99,8 +98,8 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
     tab->setAutoFillBackground(true);
     //tab->setStyleSheet("border: 1px solid black");
 
-    // Our widget is layed out as a grid
-    QGridLayout *layout = new QGridLayout();
+    // Our widget is layed out as an hbox
+    QHBoxLayout *layout = new QHBoxLayout();
     layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(0);
     tab->setLayout(layout);
@@ -116,11 +115,8 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
     hide->setMaximumSize(is);
     //hide->setFlat(true);
 
-    //QGridLayout *layout = (QGridLayout *) widget->layout();
-    layout->addWidget(widget,0,0,1,1);
-    layout->setAlignment(widget, Qt::AlignVertical_Mask | Qt::AlignLeft); //Qt::AlignHorizontal_Mask);
-    layout->addWidget(hide,0,1,1,1);
-    layout->setAlignment(hide, Qt::AlignRight | Qt::AlignBottom);
+    layout->addWidget(widget, 0, Qt::AlignLeft);
+    layout->addWidget(hide, 0, Qt::AlignRight | Qt::AlignBottom);
 
     if (index < 0) {
         pins.append(hide);
@@ -169,7 +165,7 @@ int QRibbon::insertTab(int index, QWidget *widget, const QIcon &icon, const QStr
     if (&name != Q_NULLPTR) {
         widget->setObjectName(name);
     }
-    return super::insertTab(index, makeTab(widget), icon, label);
+    return super::insertTab(index, makeTab(widget, index), icon, label);
 }
 
 int QRibbon::insertTab(int index, QWidget *widget, const QString &label, const QString &name)
@@ -177,7 +173,7 @@ int QRibbon::insertTab(int index, QWidget *widget, const QString &label, const Q
     if (&name != Q_NULLPTR) {
         widget->setObjectName(name);
     }
-    return super::insertTab(index, makeTab(widget), label);
+    return super::insertTab(index, makeTab(widget, index), label);
 }
 
 int QRibbon::insertTab(int index, QWidget *widget, const QString &name)
@@ -185,7 +181,7 @@ int QRibbon::insertTab(int index, QWidget *widget, const QString &name)
     if (&name != Q_NULLPTR) {
         widget->setObjectName(name);
     }
-    return super::insertTab(index, makeTab(widget), widget->objectName());
+    return super::insertTab(index, makeTab(widget, index), widget->objectName());
 }
 
 int QRibbon::insertDesignerTab(int index, QWidget *widget)
@@ -332,10 +328,10 @@ void QRibbon::addSection(const QString &tabName, QRibbonSection *section)
 
 QRibbonSection *QRibbon::section(int tabIndex, int sectionIndex) const
 {
-    QWidget *widget = (tabIndex >= 0 && tabIndex <widgets.size()) ? widgets[tabIndex] : Q_NULLPTR;
+    QWidget *widget = widgets.value(tabIndex, Q_NULLPTR);
     if (widget) {
         QObjectList list = widget->children();
-        QObject *w = (sectionIndex >= 0 && sectionIndex < list.size()) ? list[sectionIndex] : Q_NULLPTR;
+        QObject *w = list.value(sectionIndex, Q_NULLPTR);
         return qobject_cast<QRibbonSection *>(w);
     }
 

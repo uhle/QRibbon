@@ -5,18 +5,18 @@
 
 QRibbonButton::QRibbonButton(QWidget *parent) : QPushButton(parent)
 {
-    init(NULL);
+    init(Q_NULLPTR);
 }
 
 QRibbonButton::QRibbonButton(const QString &text, QWidget *parent) : QPushButton(text, parent)
 {
-    init(NULL);
+    init(Q_NULLPTR);
 }
 
 QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, QWidget *parent)
     : QPushButton(icon, text, parent)
 {
-    init(NULL);
+    init(Q_NULLPTR);
 }
 
 QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, const QString &name, QWidget *parent)
@@ -32,11 +32,11 @@ static int button_number = 0;
 void QRibbonButton::init(const QString *_name)
 {
     setFlat(true);
-    _action = NULL;
+    _action = Q_NULLPTR;
 
     button_number += 1;
     QString name;
-    if (_name == NULL) { // small error here
+    if (_name == Q_NULLPTR) { // small error here
         name = name.sprintf("%s_%04d", "qribbonbut", button_number);
         this->setObjectName(name);
     } else {

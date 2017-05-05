@@ -13,7 +13,7 @@ class QRIBBON_EXPORT  QRibbonSection : public QWidget
     Q_OBJECT
 
 public:
-    QRibbonSection(QWidget *parent = 0, const QString &title = 0, const QString &name = 0);
+    QRibbonSection(QWidget *parent = Q_NULLPTR, const QString &title = Q_NULLPTR, const QString &name = Q_NULLPTR);
     ~QRibbonSection();
 
 private:
@@ -37,11 +37,11 @@ public slots:
     void activateAction();
 
 public:
-    void addAction(QAction *btn, const QString &name = 0);
-    void addLargeAction(QAction *btn, const QString &name = 0);
+    void addAction(QAction *btn, const QString &name = Q_NULLPTR);
+    void addLargeAction(QAction *btn, const QString &name = Q_NULLPTR);
 
     void addLargeWidget(QWidget *w, const QString &name);
-    void addWidget(QWidget *w, const QString &name = 0, int colspan = 1);
+    void addWidget(QWidget *w, const QString &name = Q_NULLPTR, int colspan = 1);
 
     void nextRow();
     void nextColumn();

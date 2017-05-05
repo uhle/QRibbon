@@ -68,16 +68,16 @@ protected:
     virtual QSize sizeHint() const;
 
 public:
-    QRibbon(QWidget *parent = 0);
+    QRibbon(QWidget *parent = Q_NULLPTR);
     ~QRibbon();
 
 public:
-    int addTab(QWidget *widget, const QIcon &icon, const QString &label, const QString &name = 0);
-    int addTab(QWidget *widget, const QString &label, const QString &name = 0);
-    int addTab(QWidget *widget, const QString &name = 0);
-    int insertTab(int index, QWidget *widget, const QIcon &icon, const QString &label, const QString &name = 0);
-    int insertTab(int index, QWidget *widget, const QString &label, const QString &name = 0);
-    int insertTab(int index, QWidget *widget, const QString &name = 0);
+    int addTab(QWidget *widget, const QIcon &icon, const QString &label, const QString &name = Q_NULLPTR);
+    int addTab(QWidget *widget, const QString &label, const QString &name = Q_NULLPTR);
+    int addTab(QWidget *widget, const QString &name = Q_NULLPTR);
+    int insertTab(int index, QWidget *widget, const QIcon &icon, const QString &label, const QString &name = Q_NULLPTR);
+    int insertTab(int index, QWidget *widget, const QString &label, const QString &name = Q_NULLPTR);
+    int insertTab(int index, QWidget *widget, const QString &name = Q_NULLPTR);
 
 public:
     int addDesignerTab(QWidget *widget);
@@ -87,7 +87,7 @@ public:
     QWidget *tab(int index) const;
 
 public:
-    QWidget *addRibbonTab(const QString &label, const QString &name = 0);
+    QWidget *addRibbonTab(const QString &label, const QString &name = Q_NULLPTR);
 
     void setCurrentIndex(int index);
     void setTabText(int index, const QString &txt);

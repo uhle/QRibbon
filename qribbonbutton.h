@@ -13,9 +13,9 @@ private:
 
 public:
     QRibbonButton(QWidget *parent);
-    QRibbonButton(const QString &text, QWidget *parent = 0);
-    QRibbonButton(const QIcon &icon, const QString &text, QWidget *parent = 0);
-    QRibbonButton(const QIcon &icon, const QString &text, const QString &name, QWidget *parent = 0);
+    QRibbonButton(const QString &text, QWidget *parent = Q_NULLPTR);
+    QRibbonButton(const QIcon &icon, const QString &text, QWidget *parent = Q_NULLPTR);
+    QRibbonButton(const QIcon &icon, const QString &text, const QString &name, QWidget *parent = Q_NULLPTR);
 
 public:
     void setAction(QAction *a);

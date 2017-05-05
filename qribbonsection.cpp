@@ -6,13 +6,13 @@
 
 QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QString &_name) : QWidget(parent)
 {
-    action = NULL;
+    action = Q_NULLPTR;
     col = 0;
     row = 0;
     colBase = 0;
     _index = -1;
 
-    if (&_name) {
+    if (&_name != Q_NULLPTR) {
         this->setObjectName(_name);
     }
 
@@ -48,7 +48,7 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
     QWidget *footer = new QWidget(wvbox);
     footer->setLayout(lfooter);
 
-    if (&title == 0) {
+    if (&title == Q_NULLPTR) {
         title = new QLabel("", footer);
     } else {
         title = new QLabel(_title, footer);
@@ -91,7 +91,7 @@ QRibbonSection::~QRibbonSection()
 void QRibbonSection::setDetailsAction(QAction *_action)
 {
     action = _action;
-    details->setVisible(action != NULL);
+    details->setVisible(action != Q_NULLPTR);
 }
 
 void QRibbonSection::activateDetails()
@@ -163,7 +163,7 @@ void QRibbonSection::addLargeAction(QAction *a, const QString &name)
 void QRibbonSection::addWidget(QWidget *w, const QString &name, int colspan)
 {
     QGridLayout *l = (QGridLayout *) buttons->layout();
-    if (&name != 0) {
+    if (&name != Q_NULLPTR) {
         w->setObjectName(name);
     }
     l->addWidget(w, row, col, 1, colspan);
@@ -174,7 +174,7 @@ void QRibbonSection::addWidget(QWidget *w, const QString &name, int colspan)
 void QRibbonSection::addLargeWidget(QWidget *w, const QString &name)
 {
     QGridLayout *l = (QGridLayout *) buttons->layout();
-    if (&name != 0) {
+    if (&name != Q_NULLPTR) {
         w->setObjectName(name);
     }
     nextColumn();

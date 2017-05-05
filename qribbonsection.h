@@ -30,18 +30,18 @@ private:
     int _index;
 
 public:
-    void setDetailsAction(QAction * action);
+    void setDetailsAction(QAction *action);
 
 public slots:
     void activateDetails();
     void activateAction();
 
 public:
-    void addAction(QAction * btn, const QString & name = 0);
-    void addLargeAction(QAction * btn, const QString & name = 0);
+    void addAction(QAction *btn, const QString &name = 0);
+    void addLargeAction(QAction *btn, const QString &name = 0);
 
     void addLargeWidget(QWidget *w, const QString &name);
-    void addWidget(QWidget *w, const QString & name = 0, int colspan = 1);
+    void addWidget(QWidget *w, const QString &name = 0, int colspan = 1);
 
     void nextRow();
     void nextColumn();
@@ -53,7 +53,7 @@ public:
     int currentIndex();
 
 public:
-    void setTitle(const QString & title);
+    void setTitle(const QString &title);
 };
 
 #endif // QRIBBONSECTION_H

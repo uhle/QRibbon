@@ -87,7 +87,7 @@ public:
     QWidget *tab(int index) const;
 
 public:
-    QWidget *addRibbonTab(const QString & label, const QString & name = 0);
+    QWidget *addRibbonTab(const QString &label, const QString &name = 0);
 
     void setCurrentIndex(int index);
     void setTabText(int index, const QString &txt);
@@ -95,12 +95,12 @@ public:
     QRibbonSection *section(int tabIndex, int sectionIndex) const;
     QRibbonSection *section(const QString &name) const;
 
-    void addSection(const QString & tabName, QRibbonSection *section);
+    void addSection(const QString &tabName, QRibbonSection *section);
 
 signals:
     void ribbonVisibilityChanged(bool visible);
     void currentIndexChanged(int index);
-    void tabTextChanged(int index, const QString & txt);
+    void tabTextChanged(int index, const QString &txt);
 
 protected slots:
     void setRibbonVisible(bool visible);

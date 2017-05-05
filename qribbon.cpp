@@ -137,43 +137,54 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
 
 int QRibbon::addTab(QWidget *widget, const QIcon &icon, const QString &label, const QString &name)
 {
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     return super::addTab(makeTab(widget), icon, label);
 }
 
 int QRibbon::addTab(QWidget *widget, const QString &label, const QString &name)
 {
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     return super::addTab(makeTab(widget), label);
 }
 
 int QRibbon::addTab(QWidget *widget, const QString &name)
 {
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     return super::addTab(makeTab(widget), widget->objectName());
 }
 
 int QRibbon::addDesignerTab(QWidget *widget)
 {
-    return super::addTab(widget,widget->objectName());
+    return super::addTab(widget, widget->objectName());
 }
-
 
 int QRibbon::insertTab(int index, QWidget *widget, const QIcon &icon, const QString &label, const QString &name)
 {
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     return super::insertTab(index, makeTab(widget), icon, label);
 }
 
 int QRibbon::insertTab(int index, QWidget *widget, const QString &label, const QString &name)
 {
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     return super::insertTab(index, makeTab(widget), label);
 }
 
 int QRibbon::insertTab(int index, QWidget *widget, const QString &name)
 {
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     return super::insertTab(index, makeTab(widget), widget->objectName());
 }
 
@@ -182,15 +193,16 @@ int QRibbon::insertDesignerTab(int index, QWidget *widget)
     return super::insertTab(index, widget, widget->objectName());
 }
 
-
-QWidget *QRibbon::addRibbonTab(const QString & label, const QString & name)
+QWidget *QRibbon::addRibbonTab(const QString &label, const QString &name)
 {
-    QWidget * widget = new QWidget();
+    QWidget *widget = new QWidget();
     QHBoxLayout *hbox = new QHBoxLayout();
     hbox->setContentsMargins(0,0,0,0);
     hbox->setSpacing(2);
     widget->setLayout(hbox);
-    if (&name != 0) { widget->setObjectName(name); }
+    if (&name != 0) {
+        widget->setObjectName(name);
+    }
     this->addTab(widget, label, widget->objectName());
     return widget;
 }
@@ -201,7 +213,8 @@ void QRibbon::setCurrentIndex(int index)
     emit currentIndexChanged(index);
 }
 
-void QRibbon::setRibbonVisible(bool visible) {
+void QRibbon::setRibbonVisible(bool visible)
+{
     hidden = !visible;
     emit ribbonVisibilityChanged(visible);
 }
@@ -243,7 +256,6 @@ void QRibbon::hideShow()
         setRibbonVisible(true);
         popup = false;
     }
-
 }
 
 void QRibbon::showRibbon(int page)
@@ -281,7 +293,7 @@ QWidget *QRibbon::tab(int index) const
     //return widgets[index];
 }
 
-QRibbonSection *QRibbon::section(const QString & name) const
+QRibbonSection *QRibbon::section(const QString &name) const
 {
     int i;
     for(i = 0; i < widgets.size(); i++) {
@@ -334,7 +346,8 @@ QRibbonSection *QRibbon::section(int tabIndex, int sectionIndex) const
     return NULL;
 }
 
-void QRibbon::setTabText(int index, const QString & txt) {
+void QRibbon::setTabText(int index, const QString &txt)
+{
     super::setTabText(index, txt);
     emit tabTextChanged(index, txt);
 }

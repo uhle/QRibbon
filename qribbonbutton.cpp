@@ -19,7 +19,7 @@ QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, QWidget *pa
     init(NULL);
 }
 
-QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, const QString &  name, QWidget *parent)
+QRibbonButton::QRibbonButton(const QIcon &icon, const QString &text, const QString &name, QWidget *parent)
     : QPushButton(icon, text, parent)
 {
     init(&name);
@@ -45,11 +45,13 @@ void QRibbonButton::init(const QString *_name)
     this->setStyleSheet("#" + name + ":hover { background: #d5e1f2;border: none; }");
 }
 
-void QRibbonButton::setAction(QAction *a) {
+void QRibbonButton::setAction(QAction *a)
+{
     _action = a;
 }
 
-QAction *QRibbonButton::getAction() {
+QAction *QRibbonButton::getAction()
+{
     return _action;
 }
 

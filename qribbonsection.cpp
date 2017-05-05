@@ -12,7 +12,9 @@ QRibbonSection::QRibbonSection(QWidget *parent, const QString &_title, const QSt
     colBase = 0;
     _index = -1;
 
-    if (&_name) { this->setObjectName(_name); }
+    if (&_name) {
+        this->setObjectName(_name);
+    }
 
     QHBoxLayout *slayout = new QHBoxLayout();
     slayout->setContentsMargins(2,0,2,0);
@@ -111,23 +113,27 @@ void QRibbonSection::activateAction()
     }
 }
 
-QWidget *QRibbonSection::widget(int index) {
+QWidget *QRibbonSection::widget(int index)
+{
     return _widgets[index];
 }
 
-int QRibbonSection::count() {
+int QRibbonSection::count()
+{
     return _widgets.size();
 }
 
-int QRibbonSection::currentIndex() {
+int QRibbonSection::currentIndex()
+{
     return _index;
 }
 
-void QRibbonSection::setCurrentIndex(int i) {
+void QRibbonSection::setCurrentIndex(int i)
+{
     _index = i;
 }
 
-void QRibbonSection::addAction(QAction * a, const QString &name)
+void QRibbonSection::addAction(QAction *a, const QString &name)
 {
     QGridLayout *l = (QGridLayout *) buttons->layout();
     QRibbonButton *btn = new QRibbonButton(a->icon(), a->text(), name, buttons);
@@ -139,7 +145,7 @@ void QRibbonSection::addAction(QAction * a, const QString &name)
     _widgets.append(btn);
 }
 
-void QRibbonSection::addLargeAction(QAction * a, const QString &name)
+void QRibbonSection::addLargeAction(QAction *a, const QString &name)
 {
     QGridLayout *l = (QGridLayout *) buttons->layout();
     QRibbonButton *btn = new QRibbonButton(a->icon(), a->text(), name, buttons);
@@ -157,7 +163,9 @@ void QRibbonSection::addLargeAction(QAction * a, const QString &name)
 void QRibbonSection::addWidget(QWidget *w, const QString &name, int colspan)
 {
     QGridLayout *l = (QGridLayout *) buttons->layout();
-    if (&name != 0) { w->setObjectName(name); }
+    if (&name != 0) {
+        w->setObjectName(name);
+    }
     l->addWidget(w, row, col, 1, colspan);
     col += colspan;
     _widgets.append(w);
@@ -166,21 +174,25 @@ void QRibbonSection::addWidget(QWidget *w, const QString &name, int colspan)
 void QRibbonSection::addLargeWidget(QWidget *w, const QString &name)
 {
     QGridLayout *l = (QGridLayout *) buttons->layout();
-    if (&name != 0) { w->setObjectName(name); }
+    if (&name != 0) {
+        w->setObjectName(name);
+    }
     nextColumn();
     l->addWidget(w, row, col, 2, 2);
     col += 2;
     _widgets.append(w);
 }
 
-void QRibbonSection::nextColumn() {
+void QRibbonSection::nextColumn()
+{
     QGridLayout *l = (QGridLayout *) buttons->layout();
     colBase = l->columnCount();
     col = colBase;
     row = 0;
 }
 
-void QRibbonSection::nextRow() {
+void QRibbonSection::nextRow()
+{
     row += 1;
     col = colBase;
 }

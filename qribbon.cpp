@@ -301,11 +301,9 @@ QRibbonSection *QRibbon::section(const QString &name) const
         QObjectList list = widget->children();
         int j;
         for(j = 0; j < list.size(); j++) {
-            QObject *w = list[j];
-            if (_stricmp(w->metaObject()->className(),"QRibbonSection") == 0) {
-                if (w->objectName() == name) {
-                    return (QRibbonSection *) w;
-                }
+            QRibbonSection *w = qobject_cast<QRibbonSection *>(list[j]);
+            if (w && w->objectName() == name) {
+                return w;
             }
         }
     }
@@ -338,9 +336,7 @@ QRibbonSection *QRibbon::section(int tabIndex, int sectionIndex) const
     if (widget) {
         QObjectList list = widget->children();
         QObject *w = (sectionIndex >= 0 && sectionIndex < list.size()) ? list[sectionIndex] : Q_NULLPTR;
-        if (_stricmp(w->metaObject()->className(),"QRibbonSection") == 0) {
-            return (QRibbonSection *) w;
-        }
+        return qobject_cast<QRibbonSection *>(w);
     }
 
     return Q_NULLPTR;

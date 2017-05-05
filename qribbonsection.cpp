@@ -135,7 +135,7 @@ void QRibbonSection::setCurrentIndex(int i)
 
 void QRibbonSection::addAction(QAction *a, const QString &name)
 {
-    QGridLayout *l = (QGridLayout *) buttons->layout();
+    QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     QRibbonButton *btn = new QRibbonButton(a->icon(), a->text(), name, buttons);
     btn->setAction(a);
     connect(btn, SIGNAL(clicked()), this, SLOT(activateAction()));
@@ -147,7 +147,7 @@ void QRibbonSection::addAction(QAction *a, const QString &name)
 
 void QRibbonSection::addLargeAction(QAction *a, const QString &name)
 {
-    QGridLayout *l = (QGridLayout *) buttons->layout();
+    QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     QRibbonButton *btn = new QRibbonButton(a->icon(), a->text(), name, buttons);
     btn->setAction(a);
     connect(btn, SIGNAL(clicked()), this, SLOT(activateAction()));
@@ -162,7 +162,7 @@ void QRibbonSection::addLargeAction(QAction *a, const QString &name)
 
 void QRibbonSection::addWidget(QWidget *w, const QString &name, int colspan)
 {
-    QGridLayout *l = (QGridLayout *) buttons->layout();
+    QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     if (&name != Q_NULLPTR) {
         w->setObjectName(name);
     }
@@ -173,7 +173,7 @@ void QRibbonSection::addWidget(QWidget *w, const QString &name, int colspan)
 
 void QRibbonSection::addLargeWidget(QWidget *w, const QString &name)
 {
-    QGridLayout *l = (QGridLayout *) buttons->layout();
+    QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     if (&name != Q_NULLPTR) {
         w->setObjectName(name);
     }
@@ -185,7 +185,7 @@ void QRibbonSection::addLargeWidget(QWidget *w, const QString &name)
 
 void QRibbonSection::nextColumn()
 {
-    QGridLayout *l = (QGridLayout *) buttons->layout();
+    QGridLayout *l = qobject_cast<QGridLayout *>(buttons->layout());
     colBase = l->columnCount();
     col = colBase;
     row = 0;

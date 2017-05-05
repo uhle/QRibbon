@@ -8,6 +8,8 @@
 
 class QRIBBON_EXPORT QRibbonButton : public QPushButton
 {
+    Q_OBJECT
+
 private:
     void init(const QString *_name);
 

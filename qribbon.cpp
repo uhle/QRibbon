@@ -105,6 +105,7 @@ QWidget *QRibbon::makeTab(QWidget *widget, int index)
 
     // It will contain a hide button
     QToolButton *hide = new QRibbonButton(*up, "", tab);
+    hide->setFocusPolicy(Qt::NoFocus);
     hide->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     QFont f;
     QFontMetrics metrics(f);
